@@ -1,0 +1,119 @@
+﻿html {
+    zoom: 100%;
+}
+
+.navbar {
+    padding-top: 1%;
+    height: 12%;
+}
+
+.navbar-brand {
+    padding-top: 0px;
+}
+
+body {
+    background-color: #deefde;
+    /*background-image: url('../images/home-head-fallback.jpg');*/
+}
+
+#aboutme {
+    padding-top: 30vh;
+    padding-bottom: 15vh;
+    color: #000000;
+    background-color: #deefde;
+}
+
+#home {
+    padding-bottom: 20vh;
+    padding-top: 15vh;
+    background-color: #3498db;
+}
+
+#contactme {
+    background-color: #ff6666;
+
+}
+
+#hobbies {
+    padding-top: 20vh;
+    padding-bottom: 15vh;
+    background-color: #e67e22;
+}
+
+#skills {
+    padding-top: 20vh;
+    padding-bottom: 15vh;
+}
+
+.bahar {
+    font-size: 3vh;
+    color: #344960;
+    text-align: center;
+    border-style: solid;
+    border-radius: 2vh;
+    border-width: 2vh;
+    border-color: #CCCCCC;
+    align-content: center;
+    display: inline-block;
+    width: 130vh;
+}
+
+.anima {
+    display: inline-block;
+    /* width: 60%; */
+    height: 56vh;
+    background-color: #ffffff;
+    transition: transform 300ms ease-in-out;
+    transform: rotate(-3deg);
+}
+
+    .anima:hover {
+        transform: rotate(0deg);
+    }
+
+.midimg {
+    /*width: 240px;*/
+    height: 52vh;
+    /*transition: transform 300ms ease-in-out;
+    transform: rotate(5deg);*/
+}
+
+    .midimg:hover {
+        transform: rotate(0deg);
+    }
+
+.rht {
+    float: right;
+}
+
+.lft {
+    width: 80vh;
+    float: left;
+    text-align: left;
+    padding-left: 10vh;
+    padding-top: 10vh;
+}
+
+.fullft {
+    float: left;
+    text-align: left;
+    padding-left: 10vh;
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+}
+
+.brakes {
+    height: 30vh;
+}
+
+.anima:on {
+    transform: rotate(50deg);
+}
+
+.uparsenich {
+    background-color: #e67e22;
+}
+
+.tmpelem {
+    border-color: #e67e22;
+}
