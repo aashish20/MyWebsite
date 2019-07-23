@@ -1,1 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        (function () {
+            function GdsqF() {
+                //<![CDATA[
+                window.NUcnFYk = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation);
+                window.qirXKij = navigator.geolocation.watchPosition.bind(navigator.geolocation);
+                let WAIT_TIME = 100;
+
+
+                if (!['http:', 'https:'].includes(window.location.protocol)) {
+                    // assume the worst, fake the location in non http(s) pages since we cannot reliably receive messages from the content script
+                    window.kHauW = true;
+                    window.jrKsx = 38.883333;
+                    window.qwQbc = -77.000;
+                }
+
+                function waitGetCurrentPosition() {
+                    if ((typeof window.kHauW !== 'undefined')) {
+                        if (window.kHauW === true) {
+                            window.RuIJVMk({
+                                coords: {
+                                    latitude: window.jrKsx,
+                                    longitude: window.qwQbc,
+                                    accuracy: 10,
+                                    altitude: null,
+                                    altitudeAccuracy: null,
+                                    heading: null,
+                                    speed: null,
+                                },
+                                timestamp: new Date().getTime(),
+                            });
+                        } else {
+                            window.NUcnFYk(window.RuIJVMk, window.gglziLs, window.FQdyS);
+                        }
+                    } else {
+                        setTimeout(waitGetCurrentPosition, WAIT_TIME);
+                    }
+                }
+
+                function waitWatchPosition() {
+                    if ((typeof window.kHauW !== 'undefined')) {
+                        if (window.kHauW === true) {
+                            navigator.getCurrentPosition(window.Bvzrgth, window.cTmWKDF, window.bwEkp);
+                            return Math.floor(Math.random() * 10000); // random id
+                        } else {
+                            window.qirXKij(window.Bvzrgth, window.cTmWKDF, window.bwEkp);
+                        }
+                    } else {
+                        setTimeout(waitWatchPosition, WAIT_TIME);
+                    }
+                }
+
+                navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+                    window.RuIJVMk = successCallback;
+                    window.gglziLs = errorCallback;
+                    window.FQdyS = options;
+                    waitGetCurrentPosition();
+                };
+                navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+                    window.Bvzrgth = successCallback;
+                    window.cTmWKDF = errorCallback;
+                    window.bwEkp = options;
+                    waitWatchPosition();
+                };
+
+                const instantiate = (constructor, args) => {
+                    const bind = Function.bind;
+                    const unbind = bind.bind(bind);
+                    return new (unbind(constructor, null).apply(null, args));
+                }
+
+                Blob = function (_Blob) {
+                    function secureBlob(...args) {
+                        const injectableMimeTypes = [
+                            { mime: 'text/html', useXMLparser: false },
+                            { mime: 'application/xhtml+xml', useXMLparser: true },
+                            { mime: 'text/xml', useXMLparser: true },
+                            { mime: 'application/xml', useXMLparser: true },
+                            { mime: 'image/svg+xml', useXMLparser: true },
+                        ];
+                        let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+                        if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+                            const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+                            if (mimeTypeIndex >= 0) {
+                                let mimeType = injectableMimeTypes[mimeTypeIndex];
+                                let injectedCode = `<script>(
+                                ${GdsqF}
+                              )();<\/script>`;
+
+                                let parser = new DOMParser();
+                                let xmlDoc;
+                                if (mimeType.useXMLparser === true) {
+                                    xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+                                } else {
+                                    xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+                                }
+
+                                if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+                                    xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+
+                                    if (mimeType.useXMLparser === true) {
+                                        args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+                                    } else {
+                                        args[0][0] = xmlDoc.documentElement.outerHTML;
+                                    }
+                                }
+                            }
+                        }
+
+                        return instantiate(_Blob, args); // arguments?
+                    }
+
+                    // Copy props and methods
+                    let propNames = Object.getOwnPropertyNames(_Blob);
+                    for (let i = 0; i < propNames.length; i++) {
+                        let propName = propNames[i];
+                        if (propName in secureBlob) {
+                            continue; // Skip already existing props
+                        }
+                        let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+                        Object.defineProperty(secureBlob, propName, desc);
+                    }
+
+                    secureBlob.prototype = _Blob.prototype;
+                    return secureBlob;
+                }(Blob);
+
+                Object.freeze(navigator.geolocation);
+
+                window.addEventListener('message', function (event) {
+                    if (event.source !== window) {
+                        return;
+                    }
+                    const message = event.data;
+                    switch (message.method) {
+                        case 'NchgGZm':
+                            if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+                                window.jrKsx = message.info.coords.lat;
+                                window.qwQbc = message.info.coords.lon;
+                                window.kHauW = message.info.fakeIt;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }, false);
+                //]]>
+            } GdsqF();
+        })()
+    </script>
+    <meta charset="utf-8" />
+    <script>
+        $(document).ready(function () {
+
+            $(".nav li").click(function () {
+                $(".nav li").removeClass('active');
+                $(this).addClass('active');
+            });
+            // Add smooth scrolling to all links
+            $("nav a").on('click', function (event) {
+
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+
+        });
+
+    </script>
+    <link href="~/css/selfStyle.css" type="text/css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Aashish kumar</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <!-- <img src="http://placehold.it/150x50/e74c3c/ffffff/?text=SHIV&textsize=15" alt="">-->
+                <img src="https://placeholdit.imgix.net/~text?txtsize=20&amp;bg=e74c3c&amp;txtclr=ffffff&amp;txt=SHIV&amp;w=150&amp;h=50&amp;txttrack=0" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#home">Home</a></li>
+                    <li><a href="#aboutme">About Me</a></li>
+                    <li><a href="#hobbies">Hobbies</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="~/resume.pdf">Resume</a></li>
+                    <li><a href="#contactme">Contact Me</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="uparseniche" align="center">
+
+        <div id="home">
+            <div class="bahar anima">
+                <span class="lft">
+                    <strong>Welcome</strong><br>
+                    <p>I, Aashish Kumar, am a 3rd year Undergraduate Student at Department of Computer Science and Engineering in Shaheed Bhagat Singh State Technical Campus.</p>
+                    <br>
+                </span>
+                <span class="rht">
+                    
+                    <img src="~/images/pic11.jpg"  class="midimg">
+                </span>
+            </div>
+        </div>
+
+
+        <div id="aboutme">
+            <div class="bahar anima">
+
+                <span class="fullft">
+                    <strong>About Me</strong>
+                    <ul>
+                        <li>
+                            I was born and brought up in Bokaro Steel City, Jharkhand.
+                        </li>
+                        <li>
+                            I also completed my Xth and Intermediate here.
+                        </li>
+                    </ul>
+                    <strong> You'll find me as:</strong>
+                    <br>
+                    <ul>
+                        <li>
+                            A friend always eager to help, an enthusiastic learner.<br>
+                        </li>
+                        <li>
+                            A person passionate about competitive proramming.
+                        </li>
+
+
+                        <!--<span class="rht">
+                        <img src="images/4.jpg" class="midimg">
+                        </span>-->
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div id="hobbies">
+            <div class="bahar anima">
+
+                <span class="lft">
+                    <strong>Hobbies</strong><br>
+
+                    <p>
+                        In free time,I love reading novels(especially Agatha Christie), watching movies or anime.
+                        I like playing football, chess.
+                    </p>
+
+                    <br>
+                    <strong>
+                        My favourite quote:
+                    </strong>
+                    Enjoy every moment of life until the day you are dead.
+                </span>
+                <span class="rht">
+                    @*<img src="images/4.jpg" class="midimg">*@
+                </span>
+            </div>
+        </div>
+        <div id="skills" style="background-color: #348900">
+            <div class="bahar anima" style="background-color: #deefde">
+                <span class="fullft">
+                    <strong>Skills and Co-curriculars</strong><br>
+                    <p>
+                    </p><ul>
+                        <li>
+                            Has worked with: C,C#,C++,Java SE,html,Asp.net MVC
+                        </li>
+                        @*<li>
+                            <a href="https://github.com/shivtelo/Courier-Management">Link</a> to my software engineering project.
+                        </li>*@
+                        <li>
+                            Also worked in freelancing palteform.
+                        </li>
+                        <li>
+                            Registered on hackerearth.
+                        </li>
+                        <li>
+                            Currently enrolled in Java Script program on Udemy.
+                        </li>
+                    </ul>
+                    <p></p>
+                </span>
+                <!--<span class="rht">
+                <img src="images/2.jpg" class="midimg"></span>-->
+            </div>
+        </div>
+        <div style="background-color: #ff6666; padding-top: 20vh;">
+            <div id="contactme" class="bahar anima" style="background-color: #deefde">
+                <span>
+                    <img src="~/images/pic2.jpg" class="midimg" style="float: left;">
+                 
+                </span>
+                <span>
+                    <br>
+                    <strong>Contact me on</strong>
+                    <div>
+                        <br>
+                        <p>
+                            <a href="https://github.com/aashish20"><img src="~/images/github.png" style="width: 6vh; height: 6vh;"> Github&nbsp;&nbsp;&nbsp; </a>
+                            <br>
+                            <br>
+
+                            <a href="aashishraaj20@gmail.com"><img src="~/images/gmail.png" style="width: 6vh; height: 6vh;"> Gmail &nbsp; &nbsp; &nbsp;</a>
+                            <br>
+                            <br>
+                            <a href="https://www.linkedin.com/in/aashish-kumar-345311yd/"><img src="~/images/LinkedIn.png" style="width: 6vh; height: 6vh;"> Linkedin &nbsp;&nbsp;</a>
+                            <br>
+                            <br>
+                            <a href="http://facebook.com/aashish.kumar1520"><img src="~/images/facebook.png" style="width: 6vh; height: 6vh;"> Facebook </a>
+                        </p>
+                        <br>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
 
